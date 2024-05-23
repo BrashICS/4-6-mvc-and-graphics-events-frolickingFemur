@@ -4,7 +4,7 @@
  * 
  * Read through the README carefully!
  * 
- * Author:
+ * Author: Kate Boyd
  */
 
 'use strict';
@@ -32,13 +32,22 @@ class Square {
 // Setup the scene (runs first)
 function setup() {
   cvs = createCanvas(CVS_WIDTH, CVS_HEIGHT);
+  let widthSpot = 0
 
   // Initialize the grid to all white squares
   for (let y = 0; y < ROWS; y++) {
     grid[y] = [];
+    if (y % 2 == 1) widthSpot = 1;
     for (let x = 0; x < COLS; x++) {
-      grid[y].push(new Square([255, 255, 255], 0));
+      if(widthSpot == 0 || widthSpot % 2 == 0){
+          grid[y].push(new Square([255, 0, 0], 0));
+        }
+        else if(widthSpot % 2 == 1){
+          grid[y].push(new Square([255, 255, 255], 0));
+        }
+      widthSpot++
     }
+    widthSpot = 0;
   }
   
 }
@@ -81,4 +90,8 @@ function draw_grid(x, y) {
       }
     }
   }
+}
+
+function mouseClicked(){
+  grid[Math.floor((mouseY/100)/0.5)][Math.floor((mouseX/100)/0.5)].value++
 }
