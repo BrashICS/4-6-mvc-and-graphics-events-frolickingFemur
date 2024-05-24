@@ -40,10 +40,10 @@ function setup() {
     if (y % 2 == 1) widthSpot = 1;
     for (let x = 0; x < COLS; x++) {
       if(widthSpot == 0 || widthSpot % 2 == 0){
-          grid[y].push(new Square([255, 0, 0], 0));
+          grid[y].push(new Square([251, 96, 127], 0));
         }
         else if(widthSpot % 2 == 1){
-          grid[y].push(new Square([255, 255, 255], 0));
+          grid[y].push(new Square([47,255,0], 0));
         }
       widthSpot++
     }
@@ -92,6 +92,30 @@ function draw_grid(x, y) {
   }
 }
 
+let prev;
+let prevC;
+let clicky = 1;
+
 function mouseClicked(){
-  grid[Math.floor((mouseY/100)/0.5)][Math.floor((mouseX/100)/0.5)].value++
+  let x = Math.floor((mouseX/100)/0.5)
+  let y = Math.floor((mouseY/100)/0.5)
+
+  if (mouseButton == LEFT){
+    grid[y][x].value++
+
+    if(clicky > 1){
+      prev.colour = prevC
+    }
+    
+    prev = grid[y][x]
+    prevC = grid[y][x].colour 
+    grid[y][x].colour = [255,0,255]
+    clicky++
+    console.log('here')
+ }
+
+ else if (mouseButton == RIGHT){
+  grid[y][x].value = 0
+  console.log('hi')
+ }
 }
